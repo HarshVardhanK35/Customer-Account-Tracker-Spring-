@@ -1,21 +1,14 @@
 package com.wipro.CustomerAccountTracker.Controller;
 
-import java.util.List;
+import com.wipro.CustomerAccountTracker.Bean.CustomerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.wipro.CustomerAccountTracker.Bean.AccountBean;
-import com.wipro.CustomerAccountTracker.Bean.CustomerBean;
-import com.wipro.CustomerAccountTracker.Exception.RecordNotFoundException;
+import com.wipro.CustomerAccountTracker.DTO.CustomerAccountDTO;
 import com.wipro.CustomerAccountTracker.Service.CustomerService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -25,27 +18,21 @@ public class CustomerController {
 	CustomerService customerService;
 
 	@PostMapping("/addCustomer")
-	public ResponseEntity<String> createCustomer(@RequestBody CustomerBean customerBean, @RequestBody AccountBean accountBean) {
-		return ResponseEntity.ok(customerService.createCustomer(customerBean, accountBean));
-	}
+	public ResponseEntity<String> createCustomer(@RequestBody CustomerAccountDTO customerAccountDTO) {
+		if (customerAccountDTO == null || customerAccountDTO.getCustomerBean() == null || customerAccountDTO.getAccountBean() == null) {
+			return ResponseEntity.badRequest().body("Invalid request. Customer and Account details must be provided.");
+		}
 
-	@PutMapping("/updateCustomer")
-	public ResponseEntity<String> updateCustomer(@RequestBody CustomerBean customerBean) throws RecordNotFoundException {
-		return ResponseEntity.ok(customerService.updateCustomer(customerBean));
+		// Call the service method to create the customer and get the account number
+		long accountNumber = customerService.createCustomer(customerAccountDTO.getCustomerBean(), customerAccountDTO.getAccountBean());
+
+		// Return the account number in the response
+		return ResponseEntity.ok("Customer added successfully. Account Number: " + accountNumber);
 	}
 
 	@GetMapping("/getAllCustomers")
 	public ResponseEntity<List<CustomerBean>> getAllCustomers() {
-		return ResponseEntity.ok(customerService.getAllCustomers());
-	}
-
-	@GetMapping("/getByAccNum/{accountNumber}")
-	public ResponseEntity<CustomerBean> getCustomerByAccountNumber(@PathVariable("accountNumber") Long accountNumber) throws RecordNotFoundException {
-		return ResponseEntity.ok(customerService.getCustomerByAccountNumber(accountNumber));
-	}
-
-	@DeleteMapping("/deleteCustomerByAccNum/{accountNumber}")
-	public ResponseEntity<String> deleteCustomerByAccountNumber(@PathVariable("accountNumber") Long accountNumber) {
-		return ResponseEntity.ok(customerService.deleteCustomerByAccountNumber(accountNumber));
+		List<CustomerBean> customers = customerService.getAllCustomers();
+		return ResponseEntity.ok(customers);
 	}
 }

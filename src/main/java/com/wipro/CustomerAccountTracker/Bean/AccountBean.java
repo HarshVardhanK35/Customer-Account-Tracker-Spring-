@@ -27,10 +27,11 @@ public class AccountBean {
 	@Column(name = "BalanceAmount", nullable = false)
 	private int balanceAmount;
 
-	// Constructors
+	// Default constructor
 	public AccountBean() {
 	}
 
+	// Parameterized constructor
 	public AccountBean(long accountNumber, String accountType, String name, int balanceAmount) {
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
@@ -38,7 +39,8 @@ public class AccountBean {
 		this.balanceAmount = balanceAmount;
 	}
 
-	// Getters and Setters
+	// Getters and Setters for all fields
+
 	public int getUserId() {
 		return userId;
 	}
@@ -78,10 +80,15 @@ public class AccountBean {
 	public void setBalanceAmount(int balanceAmount) {
 		this.balanceAmount = balanceAmount;
 	}
-	// Override toString method for better output readability
+
 	@Override
 	public String toString() {
-		return "AccountBean [userId=" + userId + ", accountNumber=" + accountNumber + ", accountType=" + accountType
-				+ ", name=" + name + ", balanceAmount=" + balanceAmount + "]";
+		return "AccountBean{" +
+				"userId=" + userId +
+				", accountNumber=" + accountNumber +
+				", accountType='" + accountType + '\'' +
+				", name='" + name + '\'' +
+				", balanceAmount=" + balanceAmount +
+				'}';
 	}
 }

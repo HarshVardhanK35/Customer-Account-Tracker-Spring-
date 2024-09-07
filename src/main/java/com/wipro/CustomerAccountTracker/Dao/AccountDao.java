@@ -1,9 +1,10 @@
 package com.wipro.CustomerAccountTracker.Dao;
 
-import java.util.Optional;
+import com.wipro.CustomerAccountTracker.Bean.AccountBean;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.wipro.CustomerAccountTracker.Bean.AccountBean;
+
+import java.util.Optional;
 
 @Repository
 public interface AccountDao extends CrudRepository<AccountBean, Integer> {

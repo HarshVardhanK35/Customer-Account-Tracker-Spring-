@@ -1,11 +1,6 @@
 package com.wipro.CustomerAccountTracker.Bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "AccountDetails")
@@ -25,22 +20,9 @@ public class AccountBean {
 	private String name;
 
 	@Column(name = "BalanceAmount", nullable = false)
-	private int balanceAmount;
+	private double balanceAmount;
 
-	// Default constructor
-	public AccountBean() {
-	}
-
-	// Parameterized constructor
-	public AccountBean(long accountNumber, String accountType, String name, int balanceAmount) {
-		this.accountNumber = accountNumber;
-		this.accountType = accountType;
-		this.name = name;
-		this.balanceAmount = balanceAmount;
-	}
-
-	// Getters and Setters for all fields
-
+	// Getters and Setters
 	public int getUserId() {
 		return userId;
 	}
@@ -73,22 +55,11 @@ public class AccountBean {
 		this.name = name;
 	}
 
-	public int getBalanceAmount() {
+	public double getBalanceAmount() {
 		return balanceAmount;
 	}
 
-	public void setBalanceAmount(int balanceAmount) {
+	public void setBalanceAmount(double balanceAmount) {
 		this.balanceAmount = balanceAmount;
-	}
-
-	@Override
-	public String toString() {
-		return "AccountBean{" +
-				"userId=" + userId +
-				", accountNumber=" + accountNumber +
-				", accountType='" + accountType + '\'' +
-				", name='" + name + '\'' +
-				", balanceAmount=" + balanceAmount +
-				'}';
 	}
 }

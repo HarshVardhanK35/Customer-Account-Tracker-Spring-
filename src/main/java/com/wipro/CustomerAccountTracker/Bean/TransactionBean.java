@@ -22,15 +22,15 @@ public class TransactionBean {
 	private long beneficiaryAccountNumber;
 
 	@Column(name = "Amount", nullable = false)
-	private int amount;
+	private double amount;  // Change from int to double
 
 	@Column(name = "BalanceAmount", nullable = false)
-	private int balanceAmount;
+	private double balanceAmount;  // Change from int to double
 
 	// Constructors
 	public TransactionBean() {}
 
-	public TransactionBean(String beneficiaryName, long beneficiaryAccountNumber, int amount, int balanceAmount) {
+	public TransactionBean(String beneficiaryName, long beneficiaryAccountNumber, double amount, double balanceAmount) {
 		this.beneficiaryName = beneficiaryName;
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 		this.amount = amount;
@@ -62,19 +62,19 @@ public class TransactionBean {
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
-	public int getBalanceAmount() {
+	public double getBalanceAmount() {
 		return balanceAmount;
 	}
 
-	public void setBalanceAmount(int balanceAmount) {
+	public void setBalanceAmount(double balanceAmount) {
 		this.balanceAmount = balanceAmount;
 	}
 

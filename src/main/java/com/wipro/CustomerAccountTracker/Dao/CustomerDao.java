@@ -1,13 +1,13 @@
 package com.wipro.CustomerAccountTracker.Dao;
 
-import java.util.Optional;
+import com.wipro.CustomerAccountTracker.Bean.CustomerBean;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.wipro.CustomerAccountTracker.Bean.CustomerBean;
+
+import java.util.Optional;
 
 @Repository
 public interface CustomerDao extends CrudRepository<CustomerBean, Integer> {
     Optional<CustomerBean> findByAccountNumber(long accountNumber);
-
     void deleteByAccountNumber(Long accountNumber);
 }

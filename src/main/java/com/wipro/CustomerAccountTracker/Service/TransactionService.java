@@ -16,15 +16,15 @@ public class TransactionService {
 	// Method to transfer funds between two accounts
 	public String transferAmount(long fromAccount, long toAccount, double amount) throws RecordNotFoundException {
 		// Find the payer's account
-		Optional<AccountBean> payerAccountOpt = accountDao.findByAccountNumber(fromAccount);  // Change to findByAccountNumber
+		Optional<AccountBean> payerAccountOpt = accountDao.findByAccountNumber(fromAccount);
 		if (!payerAccountOpt.isPresent()) {
-			throw new RecordNotFoundException("Payer Account Not Found: " + fromAccount);
+			return "ID MISMATCH";  // Return "ID MISMATCH" instead of throwing an exception
 		}
 
 		// Find the beneficiary's account
-		Optional<AccountBean> beneficiaryAccountOpt = accountDao.findByAccountNumber(toAccount);  // Change to findByAccountNumber
+		Optional<AccountBean> beneficiaryAccountOpt = accountDao.findByAccountNumber(toAccount);
 		if (!beneficiaryAccountOpt.isPresent()) {
-			throw new RecordNotFoundException("Beneficiary Account Not Found: " + toAccount);
+			return "ID MISMATCH";  // Return "ID MISMATCH" for invalid toAccount
 		}
 
 		AccountBean payerAccount = payerAccountOpt.get();
@@ -39,7 +39,7 @@ public class TransactionService {
 		payerAccount.setBalanceAmount(payerAccount.getBalanceAmount() - amount);  // Subtract the amount
 		beneficiaryAccount.setBalanceAmount(beneficiaryAccount.getBalanceAmount() + amount);  // Add the amount
 
-		// Save the updated accounts
+		// Save updated accounts
 		accountDao.save(payerAccount);
 		accountDao.save(beneficiaryAccount);
 
